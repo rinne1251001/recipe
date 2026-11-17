@@ -1,3 +1,4 @@
+# cSpell:ignore dotenv genai lastrowid
 import json
 import os
 import sqlite3
@@ -30,7 +31,13 @@ client = genai.Client(api_key=API_KEY)
 
 app = FastAPI()
 
-CANDIDATE_MODELS = ['gemini-3.8-flash', 'gemini-2.5-flash', 'gemini-1.5-flash']
+CANDIDATE_MODELS = [
+    "gemini-3.5-flash-lite",
+    "gemini-3.1-flash-lite",
+    "gemini-3.8-flash",
+    "gemini-4-hydrogen",
+    "gemma-4-26b-a4b-it",
+]
 
 
 # ==================================================
@@ -146,14 +153,14 @@ def generate_recipe(req: RecipeRequest):
             time.sleep(2)
 
         if not response_text:
-            raise Exception("サーバーが混雑しています。少し時間を置いてからもう一度お試しください。")
+            raise RuntimeError("サーバーが混雑しています。少し時間を置いてからもう一度お試しください。")
 
         # AIの返事が正しい形かチェックしてから返す
         recipes = RecipeList.model_validate_json(response_text).recipes
         return {"recipes": recipes[:req.count]}
 
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail=str(e)) from e
 
 
 # ==================================================
