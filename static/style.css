@@ -1,0 +1,416 @@
+:root {
+    --color-font: #C3643C;
+    --color-main: #FFF0D7;
+    --color-sub: #F2C69E;
+    --color-accent: #FFAF82;
+    --color-white: #FFF;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+body {
+    font-family: "Zen Kaku Gothic New", sans-serif;
+    background-color: var(--color-main);
+    color: var(--color-font);
+}
+
+h1 {
+    font-family: "Josefin Sans", sans-serif;
+}
+
+ul {
+    list-style: none;
+}
+
+input,
+textarea,
+button {
+    border: none;
+    outline: none;
+    color: var(--color-font);
+    min-width: 0;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: color-mix(in srgb, var(--color-font), transparent 50%);
+}
+
+/* hidden 属性がついた要素は必ず隠す
+   （#load や .content は display: grid なので、これがないと hidden が効かない） */
+[hidden] {
+    display: none !important;
+}
+
+.wrapper {
+    display: grid;
+    min-height: 100vh;
+}
+
+aside {
+    display: none;
+}
+
+main {
+    overflow-x: clip;
+    position: relative;
+    padding-bottom: 50px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 10px 20px;
+}
+
+#hamb {
+    position: relative;
+    z-index: 2;
+    width: 25px;
+    height: 20px;
+    cursor: pointer;
+}
+
+#menuToggle {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+#hamb:has(#menuToggle:focus-visible) {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 6px;
+}
+
+#hamb span {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2.5px;
+    border-radius: 4px;
+    background-color: var(--color-font);
+    transition: transform .8s, opacity .8s, background-color .8s;
+}
+
+#hamb span:nth-of-type(1) {
+    top: 0;
+}
+
+#hamb span:nth-of-type(2) {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#hamb span:nth-of-type(3) {
+    bottom: 0;
+}
+
+#menu {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    padding: 100px 20px;
+    background-color: var(--color-font);
+    color: var(--color-main);
+    clip-path: circle(0 at 100% 0);
+    visibility: hidden;
+    transition: clip-path .8s ease, visibility 0s .8s;
+}
+
+main:has(#menuToggle:checked) #menu {
+    clip-path: circle(150% at 100% 0);
+    visibility: visible;
+    transition-delay: 0s;
+}
+
+#menu nav {
+    display: grid;
+    gap: 25px;
+    text-align: center;
+    font-weight: 500;
+}
+
+#menu p {
+    font-family: "Josefin Sans", sans-serif;
+    font-size: 1.5em;
+}
+
+#menu a,
+aside a {
+    color: inherit;
+    text-decoration: none;
+    transition: color .3s;
+}
+
+#menu a:hover,
+aside a:hover {
+    color: var(--color-accent);
+}
+
+main:has(#menuToggle:checked) #hamb span {
+    background-color: var(--color-main);
+}
+
+main:has(#menuToggle:checked) #hamb span:nth-of-type(1) {
+    transform: translateY(calc((20px - 2.5px) / 2)) rotate(45deg);
+}
+
+main:has(#menuToggle:checked) #hamb span:nth-of-type(2) {
+    opacity: 0;
+}
+
+main:has(#menuToggle:checked) #hamb span:nth-of-type(3) {
+    transform: translateY(calc((20px - 2.5px) / -2)) rotate(-45deg);
+}
+
+#load {
+    position: fixed;
+    inset: 0;
+    z-index: 10;
+    background-color: color-mix(in srgb, var(--color-font), transparent 50%);
+    color: var(--color-white);
+    font-size: 1.2em;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+/* エラーメッセージ */
+.error {
+    width: 100%;
+    background-color: var(--color-white);
+    border-left: 4px solid var(--color-font);
+    padding: 10px 15px;
+    font-size: .9em;
+    font-weight: 500;
+}
+
+/* ローディング中はページをスクロールさせない */
+html:has(#load:not([hidden])) {
+    overflow: hidden;
+}
+
+.twirly {
+    display: inline-block;
+    width: 1.8em;
+    height: 1.8em;
+    border: 3px solid color-mix(in srgb, var(--color-white), transparent 95%);
+    border-radius: 50%;
+    border-top-color: var(--color-white);
+    animation: twirly 1.5s linear infinite;
+}
+
+@keyframes twirly {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.content {
+    display: grid;
+    place-content: center;
+    place-items: center;
+    gap: 20px;
+    padding: 20px;
+    width: 100%;
+}
+
+.form {
+    display: grid;
+    gap: 10px;
+    background-color: var(--color-sub);
+    border-top-right-radius: 50px;
+    padding: 50px 20px 30px;
+    width: 100%;
+}
+
+.inp {
+    display: grid;
+    gap: 8px;
+    background-color: var(--color-main);
+    padding: 12px 15px 15px;
+}
+
+.inp label {
+    font-weight: 500;
+}
+
+.inp input {
+    background-color: transparent;
+    width: 100%;
+}
+
+div:has(> .inp-list) {
+    display: grid;
+    gap: 6px;
+}
+
+.inp-list {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+}
+
+.inp-list svg {
+    display: block;
+    width: 9.6px;
+    height: 8.85px;
+    flex-shrink: 0;
+}
+
+input[type="range"] {
+    appearance: none;
+    touch-action: none;
+    margin: 0;
+    background: transparent;
+    height: 35px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    appearance: none;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+    height: 6px;
+    border: solid 0 transparent;
+    border-radius: 5px;
+    background: linear-gradient(to right,
+            var(--color-accent) calc(var(--ratio, .5) * 100%),
+            color-mix(in srgb, var(--color-sub), color-mix(in srgb, var(--color-font), transparent 90%) 90%) calc(var(--ratio, .5) * 100%)) no-repeat;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    margin-top: calc((28px - 6px) / 2 * -1);
+    width: 50px;
+    height: 28px;
+    border-radius: 50px;
+    background: var(--color-accent);
+    cursor: grab;
+}
+
+.range {
+    position: relative;
+    display: grid;
+}
+
+.range output {
+    position: absolute;
+    top: 50%;
+    left: calc(25px + (100% - 50px) * var(--ratio, .5));
+    translate: -50% -50%;
+    pointer-events: none;
+    font-size: .85em;
+    font-weight: bold;
+    color: var(--color-white);
+}
+
+.btn {
+    background-color: var(--color-font);
+    color: var(--color-main);
+    font-weight: bold;
+    font-size: 0.9em;
+    padding-block: 10px;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.btn:hover {
+    background-color: var(--color-accent);
+}
+
+/* 保存済み・送信中のボタン */
+.btn:disabled {
+    opacity: .6;
+    cursor: default;
+}
+
+.btn:disabled:hover {
+    background-color: var(--color-font);
+}
+
+.circle {
+    background-color: var(--color-font);
+    color: var(--color-main);
+    font-weight: 500;
+    width: 1.6em;
+    height: 1.6em;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+}
+
+/* レシピカードを縦に並べる箱（レシピ数が2つ以上のとき） */
+.recipe-list {
+    display: grid;
+    gap: 20px;
+    width: 100%;
+}
+
+/* レシピカード：料理名と「10分」「4人前」のバッジ */
+.recipe-title {
+    font-size: 1.25em;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+.recipe-desc {
+    font-size: .9em;
+    line-height: 1.7;
+    white-space: pre-line;
+}
+
+.recipe-meta {
+    display: flex;
+    gap: 8px;
+}
+
+.recipe-meta>div {
+    background-color: var(--color-font);
+    color: var(--color-main);
+    font-size: .8em;
+    font-weight: 700;
+    padding: 3px 12px;
+    border-radius: 50px;
+}
+
+/* お気に入りが0件のとき */
+.empty {
+    text-align: center;
+    font-size: .9em;
+}
+
+@media (min-width: 1024px) {
+    .wrapper {
+        position: relative;
+        grid-template-columns: 1fr 500px 1fr;
+    }
+
+    aside {
+        display: grid;
+        place-content: center;
+        position: sticky;
+        height: 100vh;
+        top: 0;
+        background-color: var(--color-sub);
+        font-family: "Josefin Sans", "Zen Kaku Gothic New", sans-serif;
+    }
+
+    /* PCでは真ん中の列（500px）だけを覆う */
+    #load {
+        inset: 0 calc(50% - 250px);
+    }
+}
