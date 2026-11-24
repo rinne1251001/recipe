@@ -248,6 +248,12 @@ html:has(#load:not([hidden])) {
     }
 }
 
+.page-title {
+    font-size: 1.2em;
+    font-weight: bolder;
+    text-align: center;
+}
+
 .content {
     display: grid;
     place-content: center;

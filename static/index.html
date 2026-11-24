@@ -55,8 +55,8 @@
         <!-- ========== ① レシピ作成画面 ========== -->
         <section class="content" id="view-create">
             <div>
-                <div>レシピ作成</div>
-                <p>冷蔵庫にある食材を入力するとレシピを作成できます</p>
+                <div class="page-title">レシピ作成</div>
+                <p style="margin-top: 2px;">冷蔵庫にある食材を入力するとレシピを作成できます</p>
             </div>
 
             <p class="error" id="formError" hidden></p>
@@ -129,7 +129,7 @@
 
         <!-- ========== ② 作成されたレシピ画面 ========== -->
         <section class="content" id="view-result" hidden>
-            <div>
+            <div class="page-title">
                 <div id="resultHeading">作成されたレシピ</div>
             </div>
             <div class="recipe-list" id="resultList"></div>
@@ -138,7 +138,7 @@
         <!-- ========== ③ お気に入り画面 ========== -->
         <section class="content" id="view-favorites" hidden>
             <div>
-                <div>お気に入り</div>
+                <div class="page-title">お気に入り</div>
             </div>
             <p class="empty" id="favEmpty" hidden>まだお気に入りはありません</p>
             <div class="recipe-list" id="favList"></div>
@@ -147,11 +147,21 @@
 
     <aside>
         <div>
+            <img src="simaenaga.png" style="width: 50px;">
+            <img src="simaenaga2.png" style="width: 50px;">
+            <img src="simaenaga.png" style="width: 50px;">
+        </div>
+        <div>
             <div>menu</div>
             <ul>
                 <li><a href="#create">レシピ作成</a></li>
                 <li><a href="#favorites">お気に入り</a></li>
             </ul>
+        </div>
+        <div>
+            <img src="simaenaga2.png" style="width: 50px;">
+            <img src="simaenaga.png" style="width: 50px;">
+            <img src="simaenaga2.png" style="width: 50px;">
         </div>
     </aside>
 </div>
