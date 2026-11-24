@@ -50,7 +50,7 @@
             <section class="content" id="view-create">
                 <div>
                     <div>レシピ作成</div>
-                    <p>冷蔵庫にある食材を入力するとレシピを作成できます</p>
+                    <p>冷蔵庫にある食材を入力するとレシピを作成できます（空欄ならおすすめを提案します）</p>
                 </div>
 
                 <p class="error" id="formError" hidden></p>
@@ -123,7 +123,7 @@
             <!-- ========== ② 作成されたレシピ画面 ========== -->
             <section class="content" id="view-result" hidden>
                 <div>
-                    <div>作成されたレシピ</div>
+                    <div id="resultHeading">作成されたレシピ</div>
                 </div>
                 <div class="recipe-list" id="resultList"></div>
             </section>
@@ -158,6 +158,36 @@
             <div class="recipe-meta">
                 <div class="recipe-time"></div>
                 <div class="recipe-servings"></div>
+            </div>
+
+            <div class="nutrition">
+                <table>
+                    <p>栄養素（１人分）</p>
+                    <tr>
+                        <td>カロリー</td>
+                        <td><span class="num" data-nutrient="calories"></span>kcal</td>
+                    </tr>
+                    <tr>
+                        <td>脂質</td>
+                        <td><span class="num" data-nutrient="fat"></span>g</td>
+                    </tr>
+                    <tr>
+                        <td>糖質</td>
+                        <td><span class="num" data-nutrient="net_carbs"></span>g</td>
+                    </tr>
+                    <tr>
+                        <td>炭水化物</td>
+                        <td><span class="num" data-nutrient="carbs"></span>g</td>
+                    </tr>
+                    <tr>
+                        <td>タンパク質</td>
+                        <td><span class="num" data-nutrient="protein"></span>g</td>
+                    </tr>
+                    <tr>
+                        <td>塩分</td>
+                        <td><span class="num" data-nutrient="salt"></span>g</td>
+                    </tr>
+                </table>
             </div>
 
             <div class="inp">
@@ -340,6 +370,19 @@
             card.querySelector('.recipe-time').textContent = recipe.time;
             card.querySelector('.recipe-servings').textContent = recipe.servings;
 
+            // 栄養素：data-nutrient="calories" などの名前で、同じ名前の値を入れる
+            const nutritionBox = card.querySelector('.nutrition');
+            if (recipe.nutrition) {
+                nutritionBox.querySelectorAll('[data-nutrient]').forEach((span) => {
+                    const key = span.dataset.nutrient;
+                    const value = Number(recipe.nutrition[key]);
+                    // カロリーは整数、ほかは小数第1位まで（例: 2.1g）
+                    span.textContent = key === 'calories' ? Math.round(value) : Math.round(value * 10) / 10;
+                });
+            } else {
+                nutritionBox.remove(); // 栄養素がない古いお気に入りは表を出さない
+            }
+
             card.querySelector('.recipe-ingredients').append(
                 ...recipe.ingredients.map((text) => createItem(heartItemTemplate, text))
             );
@@ -385,10 +428,8 @@
                 count: Number(document.getElementById('count').value),
             };
 
-            if (body.ingredients.length === 0) {
-                showError('使う食材を1つ以上入力してください。');
-                return;
-            }
+            // 使う食材が空なら、サーバー側でおすすめのレシピを考えてもらう
+            const isRecommend = body.ingredients.length === 0;
 
             formError.hidden = true;
             loading.hidden = false;
@@ -396,6 +437,8 @@
 
             try {
                 const data = await requestJSON('/api/generate', 'POST', body);
+                document.getElementById('resultHeading').textContent =
+                    isRecommend ? 'おすすめのレシピ' : '作成されたレシピ';
                 resultList.replaceChildren(
                     ...data.recipes.map((recipe) => createRecipeCard(recipe, 'save'))
                 );
