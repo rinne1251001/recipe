@@ -113,15 +113,26 @@ def join_items(items: list[str], empty: str) -> str:
 @app.post("/api/generate")
 def generate_recipe(req: RecipeRequest):
     ingredients = join_items(req.ingredients, "")
+    exclude = join_items(req.exclude, "")
+    conditions = join_items(req.conditions, "")
+    month = datetime.now().month
 
     if ingredients:
-        # 食材が入力されたとき：その食材を使ったレシピ
+        # ① 使う食材が入力されたとき：その食材を使ったレシピ
         task = f"以下の条件で、家庭で簡単に作れる美味しいレシピを{req.count}つ提案してください。"
         ingredients_line = f"【使いたい食材】{ingredients}"
-    else:
-        # 食材が空のとき：今の季節に合ったおすすめレシピ
+    elif exclude or conditions:
+        # ② 使う食材は空だが、使わない食材か条件があるとき：条件を最優先したおすすめレシピ
         task = (
-            f"今は{datetime.now().month}月です。旬の食材を使った、"
+            f"使う食材の指定はありません。以下の条件をすべて守った、"
+            f"家庭で簡単に作れるおすすめのレシピを{req.count}つ提案してください。"
+            f"条件に合う範囲で、今の季節（{month}月）の旬の食材も取り入れてください。"
+        )
+        ingredients_line = "【使いたい食材】指定なし（条件に合う食材を自由に選んでください）"
+    else:
+        # ③ 何も入力されていないとき：今の季節に合ったおすすめレシピ
+        task = (
+            f"今は{month}月です。旬の食材を使った、"
             f"家庭で簡単に作れるおすすめのレシピを{req.count}つ提案してください。"
         )
         ingredients_line = "【使いたい食材】指定なし（旬の食材や、家庭によくある食材から選んでください）"
@@ -131,13 +142,15 @@ def generate_recipe(req: RecipeRequest):
         あなたはプロの料理研究家です。{task}
 
         {ingredients_line}
-        【使わない食材】{join_items(req.exclude, "なし")}
-        【その他の条件】{join_items(req.conditions, "特になし")}
+        【使わない食材】{exclude or "なし"}
+        【その他の条件】{conditions or "特になし"}
         【人数】{req.servings}人前
         【調理時間】{req.minutes}分以内
 
         ルール:
-        - 「使わない食材」は材料に入れないでください。
+        - 【使わない食材】【その他の条件】【人数】【調理時間】は必ず守ってください。
+        - 「使わない食材」は、調味料も含めて材料にも作り方にも使わないでください。
+        - time は{req.minutes}分以内にしてください。
         - 材料の分量は{req.servings}人前で書いてください。
         - 複数のレシピを提案するときは、それぞれ別の料理にしてください。
         - title: 食べたくなるような料理名

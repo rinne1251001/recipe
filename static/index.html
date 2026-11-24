@@ -111,12 +111,13 @@
                     <div class="inp">
                         <label for="count">レシピ数</label>
                         <div class="range">
-                            <input type="range" id="count" min="1" max="5" step="1">
+                            <input type="range" id="count" min="1" max="5" step="1" value="3">
                             <output></output>
                         </div>
                     </div>
 
                     <button id="submitBtn" class="btn" type="button">レシピ作成</button>
+                    <button id="resetBtn" class="btn reset" type="button">クリア</button>
                 </div>
             </section>
 
@@ -449,6 +450,27 @@
                 loading.hidden = true;
                 submitBtn.disabled = false;
             }
+        });
+
+        // クリアボタン：入力欄とスライダーを最初の状態に戻す
+        document.getElementById('resetBtn').addEventListener('click', () => {
+            // 食材・条件の欄：1行だけ残して空にする（増えた行は消す）
+            document.querySelectorAll('[data-list]').forEach((list) => {
+                const rows = list.querySelectorAll('.inp-list');
+                rows.forEach((row, i) => {
+                    if (i > 0) row.remove();
+                });
+                rows[0].querySelector('input').value = '';
+            });
+
+            // スライダー：HTMLの value="○" の値に戻す
+            document.querySelectorAll('.range input[type="range"]').forEach((range) => {
+                range.value = range.defaultValue;
+                // input イベントを起こして、数字の表示と色のついた部分も更新する
+                range.dispatchEvent(new Event('input'));
+            });
+
+            formError.hidden = true;
         });
 
 
