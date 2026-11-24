@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recitopia</title>
+    <link rel="icon" href="favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -12,516 +13,520 @@
         rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-    <div class="wrapper">
+<div class="wrapper">
     <aside>
         <div>Recitopia</div>
         <div class="image-group">
-        <img src="/omurice.png" alt="omurice2" width="150px" style="margin-right: -30px;">
-        <img src="/onigiri.png" alt="onigiri2" width="120px">
-    </div>
-</aside>
+            <img src="/omurice.png" alt="omurice2" width="150px"
+                style="margin-right: -25px; margin-bottom: -15px; animation: kakukaku 1s steps(1) infinite;">
+            <img src="/onigiri.png" alt="onigiri2" width="120px" style="animation: kakukaku 1s steps(1) 0.5s infinite;">
+        </div>
+    </aside>
 
-        <main>
-            <header>
-                <h1>Recitopia</h1>
-                <label id="hamb">
-                    <input type="checkbox" id="menuToggle" aria-label="メニュー">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </label>
-            </header>
-
-            <div id="menu">
-                <nav>
-                    <p>menu</p>
-                    <ul>
-                        <li><a href="#create">レシピ作成</a></li>
-                        <li><a href="#favorites">お気に入り</a></li>
-                    </ul>
-                </nav>
-            </div>
-
-            <!-- 読み込み中の表示（最初は隠しておく） -->
-            <div id="load" hidden>
-                <span class="twirly"></span><span>レシピ作成中</span>
-            </div>
-
-            <!-- ========== ① レシピ作成画面 ========== -->
-            <section class="content" id="view-create">
-                <div>
-                    <div>レシピ作成</div>
-                    <p>冷蔵庫にある食材を入力するとレシピを作成できます（空欄ならおすすめを提案します）</p>
-                </div>
-
-                <p class="error" id="formError" hidden></p>
-
-                <div class="form">
-                    <div class="inp">
-                        <label>使う食材</label>
-                        <div data-list="ingredients">
-                            <div class="inp-list">
-                                <svg>
-                                    <use href="#heart" />
-                                </svg>
-                                <input placeholder="例: キャベツ、豚肉、醤油など">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="inp">
-                        <label>使わない食材</label>
-                        <div data-list="exclude">
-                            <div class="inp-list">
-                                <svg>
-                                    <use href="#heart" />
-                                </svg>
-                                <input placeholder="例: キャベツ、豚肉、醤油など">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="inp">
-                        <label>条件</label>
-                        <div data-list="conditions">
-                            <div class="inp-list">
-                                <svg>
-                                    <use href="#heart" />
-                                </svg>
-                                <input placeholder="例: 時短、ホームパーティーなど">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="inp">
-                        <label for="servings">人数</label>
-                        <div class="range">
-                            <input type="range" id="servings" min="1" max="20" step="1" value="4">
-                            <output></output>
-                        </div>
-                    </div>
-
-                    <div class="inp">
-                        <label for="minutes">時間（分）</label>
-                        <div class="range">
-                            <input type="range" id="minutes" min="5" max="200" step="5" value="30">
-                            <output></output>
-                        </div>
-                    </div>
-
-                    <div class="inp">
-                        <label for="count">レシピ数</label>
-                        <div class="range">
-                            <input type="range" id="count" min="1" max="5" step="1" value="3">
-                            <output></output>
-                        </div>
-                    </div>
-
-                    <button id="submitBtn" class="btn" type="button">レシピ作成</button>
-                    <button id="resetBtn" class="btn reset" type="button">クリア</button>
-                </div>
-            </section>
-
-            <!-- ========== ② 作成されたレシピ画面 ========== -->
-            <section class="content" id="view-result" hidden>
-                <div>
-                    <div id="resultHeading">作成されたレシピ</div>
-                </div>
-                <div class="recipe-list" id="resultList"></div>
-            </section>
-
-            <!-- ========== ③ お気に入り画面 ========== -->
-            <section class="content" id="view-favorites" hidden>
-                <div>
-                    <div>お気に入り</div>
-                </div>
-                <p class="empty" id="favEmpty" hidden>まだお気に入りはありません</p>
-                <div class="recipe-list" id="favList"></div>
-            </section>
-        </main>
-
-        <aside>
+    <main>
+        <header>
             <div>
-                <div>menu</div>
+                <h1>Recitopia</h1>
+                <img src="/omurice.png" alt="omurice2">
+            </div>
+            <label id="hamb">
+                <input type="checkbox" id="menuToggle" aria-label="メニュー">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
+        </header>
+
+        <div id="menu">
+            <nav>
+                <p>menu</p>
                 <ul>
                     <li><a href="#create">レシピ作成</a></li>
                     <li><a href="#favorites">お気に入り</a></li>
                 </ul>
+            </nav>
+        </div>
+
+        <!-- 読み込み中の表示（最初は隠しておく） -->
+        <div id="load" hidden>
+            <span class="twirly"></span><span>レシピ作成中</span>
+        </div>
+
+        <!-- ========== ① レシピ作成画面 ========== -->
+        <section class="content" id="view-create">
+            <div>
+                <div>レシピ作成</div>
+                <p>冷蔵庫にある食材を入力するとレシピを作成できます</p>
             </div>
-        </aside>
+
+            <p class="error" id="formError" hidden></p>
+
+            <div class="form">
+                <div class="inp">
+                    <label>使う食材</label>
+                    <div data-list="ingredients">
+                        <div class="inp-list">
+                            <svg>
+                                <use href="#heart" />
+                            </svg>
+                            <input placeholder="例: キャベツ、豚肉、醤油など">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="inp">
+                    <label>使わない食材</label>
+                    <div data-list="exclude">
+                        <div class="inp-list">
+                            <svg>
+                                <use href="#heart" />
+                            </svg>
+                            <input placeholder="例: キャベツ、豚肉、醤油など">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="inp">
+                    <label>条件</label>
+                    <div data-list="conditions">
+                        <div class="inp-list">
+                            <svg>
+                                <use href="#heart" />
+                            </svg>
+                            <input placeholder="例: 時短、ホームパーティーなど">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="inp">
+                    <label for="servings">人数</label>
+                    <div class="range">
+                        <input type="range" id="servings" min="1" max="20" step="1" value="4">
+                        <output></output>
+                    </div>
+                </div>
+
+                <div class="inp">
+                    <label for="minutes">時間（分）</label>
+                    <div class="range">
+                        <input type="range" id="minutes" min="5" max="200" step="5" value="30">
+                        <output></output>
+                    </div>
+                </div>
+
+                <div class="inp">
+                    <label for="count">レシピ数</label>
+                    <div class="range">
+                        <input type="range" id="count" min="1" max="5" step="1" value="3">
+                        <output></output>
+                    </div>
+                </div>
+
+                <button id="submitBtn" class="btn" type="button">レシピ作成</button>
+                <button id="resetBtn" class="btn reset" type="button">クリア</button>
+            </div>
+        </section>
+
+        <!-- ========== ② 作成されたレシピ画面 ========== -->
+        <section class="content" id="view-result" hidden>
+            <div>
+                <div id="resultHeading">作成されたレシピ</div>
+            </div>
+            <div class="recipe-list" id="resultList"></div>
+        </section>
+
+        <!-- ========== ③ お気に入り画面 ========== -->
+        <section class="content" id="view-favorites" hidden>
+            <div>
+                <div>お気に入り</div>
+            </div>
+            <p class="empty" id="favEmpty" hidden>まだお気に入りはありません</p>
+            <div class="recipe-list" id="favList"></div>
+        </section>
+    </main>
+
+    <aside>
+        <div>
+            <div>menu</div>
+            <ul>
+                <li><a href="#create">レシピ作成</a></li>
+                <li><a href="#favorites">お気に入り</a></li>
+            </ul>
+        </div>
+    </aside>
+</div>
+
+
+<!-- ===== レシピカードの型（JavaScriptでコピーして中身を入れる） ===== -->
+<template id="recipeTemplate">
+    <div class="form recipe">
+        <div class="recipe-title"></div>
+        <p class="recipe-desc"></p>
+        <div class="recipe-meta">
+            <div class="recipe-time"></div>
+            <div class="recipe-servings"></div>
+        </div>
+
+        <div class="nutrition">
+            <table>
+                <p>栄養素（１人分）</p>
+                <tr>
+                    <td>カロリー</td>
+                    <td><span class="num" data-nutrient="calories"></span>kcal</td>
+                </tr>
+                <tr>
+                    <td>脂質</td>
+                    <td><span class="num" data-nutrient="fat"></span>g</td>
+                </tr>
+                <tr>
+                    <td>糖質</td>
+                    <td><span class="num" data-nutrient="net_carbs"></span>g</td>
+                </tr>
+                <tr>
+                    <td>炭水化物</td>
+                    <td><span class="num" data-nutrient="carbs"></span>g</td>
+                </tr>
+                <tr>
+                    <td>タンパク質</td>
+                    <td><span class="num" data-nutrient="protein"></span>g</td>
+                </tr>
+                <tr>
+                    <td>塩分</td>
+                    <td><span class="num" data-nutrient="salt"></span>g</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="inp">
+            <label>材料</label>
+            <div class="recipe-ingredients"></div>
+        </div>
+
+        <div class="inp">
+            <label>作り方</label>
+            <div class="recipe-steps"></div>
+        </div>
+
+        <div class="inp">
+            <label>コツ・ポイント</label>
+            <div class="recipe-points"></div>
+        </div>
+
+        <button class="btn recipe-action" type="button">お気に入りに保存</button>
     </div>
+</template>
+
+<!-- 材料・コツの1行（ハート＋文章） -->
+<template id="heartItemTemplate">
+    <div class="inp-list">
+        <svg>
+            <use href="#heart" />
+        </svg>
+        <p></p>
+    </div>
+</template>
+
+<!-- 作り方の1行（番号＋文章） -->
+<template id="stepItemTemplate">
+    <div class="inp-list">
+        <div class="circle"><span></span></div>
+        <p></p>
+    </div>
+</template>
 
 
-    <!-- ===== レシピカードの型（JavaScriptでコピーして中身を入れる） ===== -->
-    <template id="recipeTemplate">
-        <div class="form recipe">
-            <div class="recipe-title"></div>
-            <p class="recipe-desc"></p>
-            <div class="recipe-meta">
-                <div class="recipe-time"></div>
-                <div class="recipe-servings"></div>
-            </div>
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" style="display: none;">
+    <symbol id="heart" viewBox="0 0 192 177">
+        <path fill="var(--color-accent)" d="M96 46.8c39.6-97.5 194 0 0 125.2C-98 46.8 56.4-50.7 96 46.8z"
+            fill-rule="evenodd" />
+    </symbol>
+</svg>
 
-            <div class="nutrition">
-                <table>
-                    <p>栄養素（１人分）</p>
-                    <tr>
-                        <td>カロリー</td>
-                        <td><span class="num" data-nutrient="calories"></span>kcal</td>
-                    </tr>
-                    <tr>
-                        <td>脂質</td>
-                        <td><span class="num" data-nutrient="fat"></span>g</td>
-                    </tr>
-                    <tr>
-                        <td>糖質</td>
-                        <td><span class="num" data-nutrient="net_carbs"></span>g</td>
-                    </tr>
-                    <tr>
-                        <td>炭水化物</td>
-                        <td><span class="num" data-nutrient="carbs"></span>g</td>
-                    </tr>
-                    <tr>
-                        <td>タンパク質</td>
-                        <td><span class="num" data-nutrient="protein"></span>g</td>
-                    </tr>
-                    <tr>
-                        <td>塩分</td>
-                        <td><span class="num" data-nutrient="salt"></span>g</td>
-                    </tr>
-                </table>
-            </div>
+<script>
+    // スライダー：つまみの位置（0〜1）と数値を表示する
+    document.querySelectorAll('.range').forEach((wrap) => {
+        const range = wrap.querySelector('input[type="range"]');
+        const output = wrap.querySelector('output');
 
-            <div class="inp">
-                <label>材料</label>
-                <div class="recipe-ingredients"></div>
-            </div>
+        function update() {
+            const min = Number(range.min) || 0;
+            const max = Number(range.max) || 100;
+            wrap.style.setProperty('--ratio', (range.value - min) / (max - min));
+            output.textContent = range.value;
+        }
 
-            <div class="inp">
-                <label>作り方</label>
-                <div class="recipe-steps"></div>
-            </div>
+        range.addEventListener('input', update);
+        update();
+    });
 
-            <div class="inp">
-                <label>コツ・ポイント</label>
-                <div class="recipe-points"></div>
-            </div>
+    // 食材リスト：一番下の欄に入力したら、その下に空の欄を1つ増やす
+    document.addEventListener('input', (e) => {
+        const row = e.target.closest('.inp-list');
+        if (!row) return;
 
-            <button class="btn recipe-action" type="button">お気に入りに保存</button>
-        </div>
-    </template>
+        const isLast = row === row.parentElement.lastElementChild;
+        if (isLast && e.target.value.trim() !== '') {
+            const newRow = row.cloneNode(true);
+            newRow.querySelector('input').value = '';
+            row.after(newRow);
+        }
+    });
 
-    <!-- 材料・コツの1行（ハート＋文章） -->
-    <template id="heartItemTemplate">
-        <div class="inp-list">
-            <svg>
-                <use href="#heart" />
-            </svg>
-            <p></p>
-        </div>
-    </template>
+    // 途中の欄を空にしてほかの場所に移ったら、その欄を消す
+    document.addEventListener('focusout', (e) => {
+        const row = e.target.closest('.inp-list');
+        if (!row) return;
 
-    <!-- 作り方の1行（番号＋文章） -->
-    <template id="stepItemTemplate">
-        <div class="inp-list">
-            <div class="circle"><span></span></div>
-            <p></p>
-        </div>
-    </template>
+        const isLast = row === row.parentElement.lastElementChild;
+        if (!isLast && e.target.value.trim() === '') {
+            row.remove();
+        }
+    });
 
 
-    <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" style="display: none;">
-        <symbol id="heart" viewBox="0 0 192 177">
-            <path fill="var(--color-accent)" d="M96 46.8c39.6-97.5 194 0 0 125.2C-98 46.8 56.4-50.7 96 46.8z"
-                fill-rule="evenodd" />
-        </symbol>
-    </svg>
+    // ==================================================
+    //  ここから下：レシピ作成・お気に入りの処理
+    // ==================================================
 
-    <script>
-        // スライダー：つまみの位置（0〜1）と数値を表示する
-        document.querySelectorAll('.range').forEach((wrap) => {
-            const range = wrap.querySelector('input[type="range"]');
-            const output = wrap.querySelector('output');
+    const menuToggle = document.getElementById('menuToggle');
+    const loading = document.getElementById('load');
+    const submitBtn = document.getElementById('submitBtn');
+    const formError = document.getElementById('formError');
+    const resultList = document.getElementById('resultList');
+    const favList = document.getElementById('favList');
+    const favEmpty = document.getElementById('favEmpty');
 
-            function update() {
-                const min = Number(range.min) || 0;
-                const max = Number(range.max) || 100;
-                wrap.style.setProperty('--ratio', (range.value - min) / (max - min));
-                output.textContent = range.value;
-            }
+    const views = {
+        create: document.getElementById('view-create'),
+        result: document.getElementById('view-result'),
+        favorites: document.getElementById('view-favorites'),
+    };
 
-            range.addEventListener('input', update);
-            update();
+
+    // ----- 画面の切り替え（URLの #create / #result / #favorites で切り替える） -----
+    function showView(name) {
+        // 知らない名前や、まだレシピがないのに #result を開いたときは作成画面へ
+        if (!views[name] || (name === 'result' && resultList.children.length === 0)) {
+            name = 'create';
+        }
+
+        for (const [key, view] of Object.entries(views)) {
+            view.hidden = key !== name;
+        }
+        menuToggle.checked = false; // メニューを閉じる
+        window.scrollTo(0, 0);
+
+        if (name === 'favorites') loadFavorites();
+    }
+
+    // 同じ画面に移動するときは hashchange が起きないので、直接 showView を呼ぶ
+    function goTo(name) {
+        if (location.hash === '#' + name) {
+            showView(name);
+        } else {
+            location.hash = name;
+        }
+    }
+
+    window.addEventListener('hashchange', () => showView(location.hash.slice(1)));
+
+    // 今いる画面のメニューを押したときもメニューを閉じる
+    document.querySelectorAll('#menu a').forEach((link) => {
+        link.addEventListener('click', () => { menuToggle.checked = false; });
+    });
+
+
+    // ----- サーバー（FastAPI）とのやりとり -----
+    async function requestJSON(url, method = 'GET', body) {
+        const response = await fetch(url, {
+            method,
+            headers: { 'Content-Type': 'application/json' },
+            body: body === undefined ? undefined : JSON.stringify(body),
         });
 
-        // 食材リスト：一番下の欄に入力したら、その下に空の欄を1つ増やす
-        document.addEventListener('input', (e) => {
-            const row = e.target.closest('.inp-list');
-            if (!row) return;
-
-            const isLast = row === row.parentElement.lastElementChild;
-            if (isLast && e.target.value.trim() !== '') {
-                const newRow = row.cloneNode(true);
-                newRow.querySelector('input').value = '';
-                row.after(newRow);
-            }
-        });
-
-        // 途中の欄を空にしてほかの場所に移ったら、その欄を消す
-        document.addEventListener('focusout', (e) => {
-            const row = e.target.closest('.inp-list');
-            if (!row) return;
-
-            const isLast = row === row.parentElement.lastElementChild;
-            if (!isLast && e.target.value.trim() === '') {
-                row.remove();
-            }
-        });
+        const data = await response.json().catch(() => null);
+        if (!response.ok) {
+            // FastAPIのエラーは { "detail": "メッセージ" } の形で返ってくる
+            const message = typeof data?.detail === 'string' ? data.detail : '通信に失敗しました。';
+            throw new Error(message);
+        }
+        return data;
+    }
 
 
-        // ==================================================
-        //  ここから下：レシピ作成・お気に入りの処理
-        // ==================================================
+    // ----- レシピカードを作る -----
+    const recipeTemplate = document.getElementById('recipeTemplate');
+    const heartItemTemplate = document.getElementById('heartItemTemplate');
+    const stepItemTemplate = document.getElementById('stepItemTemplate');
 
-        const menuToggle = document.getElementById('menuToggle');
-        const loading = document.getElementById('load');
-        const submitBtn = document.getElementById('submitBtn');
-        const formError = document.getElementById('formError');
-        const resultList = document.getElementById('resultList');
-        const favList = document.getElementById('favList');
-        const favEmpty = document.getElementById('favEmpty');
+    // 1行分（ハート＋文章、または番号＋文章）を作る
+    function createItem(template, text, number) {
+        const item = template.content.firstElementChild.cloneNode(true);
+        item.querySelector('p').textContent = text;
+        if (number) item.querySelector('.circle span').textContent = number;
+        return item;
+    }
 
-        const views = {
-            create: document.getElementById('view-create'),
-            result: document.getElementById('view-result'),
-            favorites: document.getElementById('view-favorites'),
+    // mode が 'save' なら「お気に入りに保存」、'delete' なら「お気に入りから削除」ボタンにする
+    function createRecipeCard(recipe, mode) {
+        const card = recipeTemplate.content.firstElementChild.cloneNode(true);
+
+        // textContent を使うと、AIの返事にHTMLタグが混ざっていても文字として表示されるので安全
+        card.querySelector('.recipe-title').textContent = recipe.title;
+        card.querySelector('.recipe-desc').textContent = recipe.description;
+        card.querySelector('.recipe-time').textContent = recipe.time;
+        card.querySelector('.recipe-servings').textContent = recipe.servings;
+
+        // 栄養素：data-nutrient="calories" などの名前で、同じ名前の値を入れる
+        const nutritionBox = card.querySelector('.nutrition');
+        if (recipe.nutrition) {
+            nutritionBox.querySelectorAll('[data-nutrient]').forEach((span) => {
+                const key = span.dataset.nutrient;
+                const value = Number(recipe.nutrition[key]);
+                // カロリーは整数、ほかは小数第1位まで（例: 2.1g）
+                span.textContent = key === 'calories' ? Math.round(value) : Math.round(value * 10) / 10;
+            });
+        } else {
+            nutritionBox.remove(); // 栄養素がない古いお気に入りは表を出さない
+        }
+
+        card.querySelector('.recipe-ingredients').append(
+            ...recipe.ingredients.map((text) => createItem(heartItemTemplate, text))
+        );
+        card.querySelector('.recipe-steps').append(
+            ...recipe.steps.map((text, i) => createItem(stepItemTemplate, text, i + 1))
+        );
+        card.querySelector('.recipe-points').append(
+            ...recipe.points.map((text) => createItem(heartItemTemplate, text))
+        );
+
+        const button = card.querySelector('.recipe-action');
+        if (mode === 'save') {
+            button.addEventListener('click', () => saveFavorite(recipe, button));
+        } else {
+            button.textContent = 'お気に入りから削除';
+            button.addEventListener('click', () => deleteFavorite(recipe.id, card, button));
+        }
+        return card;
+    }
+
+
+    // ----- ① レシピ作成 -----
+    // data-list="○○" の欄に入力された文字を配列で取り出す（空欄は除く）
+    function getListValues(name) {
+        return [...document.querySelectorAll(`[data-list="${name}"] input`)]
+            .map((input) => input.value.trim())
+            .filter((value) => value !== '');
+    }
+
+    function showError(message) {
+        formError.textContent = message;
+        formError.hidden = false;
+        formError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    submitBtn.addEventListener('click', async () => {
+        const body = {
+            ingredients: getListValues('ingredients'),
+            exclude: getListValues('exclude'),
+            conditions: getListValues('conditions'),
+            servings: Number(document.getElementById('servings').value),
+            minutes: Number(document.getElementById('minutes').value),
+            count: Number(document.getElementById('count').value),
         };
 
+        // 使う食材が空なら、サーバー側でおすすめのレシピを考えてもらう
+        const isRecommend = body.ingredients.length === 0;
 
-        // ----- 画面の切り替え（URLの #create / #result / #favorites で切り替える） -----
-        function showView(name) {
-            // 知らない名前や、まだレシピがないのに #result を開いたときは作成画面へ
-            if (!views[name] || (name === 'result' && resultList.children.length === 0)) {
-                name = 'create';
-            }
+        formError.hidden = true;
+        loading.hidden = false;
+        submitBtn.disabled = true;
 
-            for (const [key, view] of Object.entries(views)) {
-                view.hidden = key !== name;
-            }
-            menuToggle.checked = false; // メニューを閉じる
-            window.scrollTo(0, 0);
-
-            if (name === 'favorites') loadFavorites();
+        try {
+            const data = await requestJSON('/api/generate', 'POST', body);
+            document.getElementById('resultHeading').textContent =
+                isRecommend ? 'おすすめのレシピ' : '作成されたレシピ';
+            resultList.replaceChildren(
+                ...data.recipes.map((recipe) => createRecipeCard(recipe, 'save'))
+            );
+            goTo('result');
+        } catch (error) {
+            showError('エラーが発生しました: ' + error.message);
+        } finally {
+            loading.hidden = true;
+            submitBtn.disabled = false;
         }
+    });
 
-        // 同じ画面に移動するときは hashchange が起きないので、直接 showView を呼ぶ
-        function goTo(name) {
-            if (location.hash === '#' + name) {
-                showView(name);
-            } else {
-                location.hash = name;
-            }
-        }
-
-        window.addEventListener('hashchange', () => showView(location.hash.slice(1)));
-
-        // 今いる画面のメニューを押したときもメニューを閉じる
-        document.querySelectorAll('#menu a').forEach((link) => {
-            link.addEventListener('click', () => { menuToggle.checked = false; });
+    // クリアボタン：入力欄とスライダーを最初の状態に戻す
+    document.getElementById('resetBtn').addEventListener('click', () => {
+        // 食材・条件の欄：1行だけ残して空にする（増えた行は消す）
+        document.querySelectorAll('[data-list]').forEach((list) => {
+            const rows = list.querySelectorAll('.inp-list');
+            rows.forEach((row, i) => {
+                if (i > 0) row.remove();
+            });
+            rows[0].querySelector('input').value = '';
         });
 
-
-        // ----- サーバー（FastAPI）とのやりとり -----
-        async function requestJSON(url, method = 'GET', body) {
-            const response = await fetch(url, {
-                method,
-                headers: { 'Content-Type': 'application/json' },
-                body: body === undefined ? undefined : JSON.stringify(body),
-            });
-
-            const data = await response.json().catch(() => null);
-            if (!response.ok) {
-                // FastAPIのエラーは { "detail": "メッセージ" } の形で返ってくる
-                const message = typeof data?.detail === 'string' ? data.detail : '通信に失敗しました。';
-                throw new Error(message);
-            }
-            return data;
-        }
-
-
-        // ----- レシピカードを作る -----
-        const recipeTemplate = document.getElementById('recipeTemplate');
-        const heartItemTemplate = document.getElementById('heartItemTemplate');
-        const stepItemTemplate = document.getElementById('stepItemTemplate');
-
-        // 1行分（ハート＋文章、または番号＋文章）を作る
-        function createItem(template, text, number) {
-            const item = template.content.firstElementChild.cloneNode(true);
-            item.querySelector('p').textContent = text;
-            if (number) item.querySelector('.circle span').textContent = number;
-            return item;
-        }
-
-        // mode が 'save' なら「お気に入りに保存」、'delete' なら「お気に入りから削除」ボタンにする
-        function createRecipeCard(recipe, mode) {
-            const card = recipeTemplate.content.firstElementChild.cloneNode(true);
-
-            // textContent を使うと、AIの返事にHTMLタグが混ざっていても文字として表示されるので安全
-            card.querySelector('.recipe-title').textContent = recipe.title;
-            card.querySelector('.recipe-desc').textContent = recipe.description;
-            card.querySelector('.recipe-time').textContent = recipe.time;
-            card.querySelector('.recipe-servings').textContent = recipe.servings;
-
-            // 栄養素：data-nutrient="calories" などの名前で、同じ名前の値を入れる
-            const nutritionBox = card.querySelector('.nutrition');
-            if (recipe.nutrition) {
-                nutritionBox.querySelectorAll('[data-nutrient]').forEach((span) => {
-                    const key = span.dataset.nutrient;
-                    const value = Number(recipe.nutrition[key]);
-                    // カロリーは整数、ほかは小数第1位まで（例: 2.1g）
-                    span.textContent = key === 'calories' ? Math.round(value) : Math.round(value * 10) / 10;
-                });
-            } else {
-                nutritionBox.remove(); // 栄養素がない古いお気に入りは表を出さない
-            }
-
-            card.querySelector('.recipe-ingredients').append(
-                ...recipe.ingredients.map((text) => createItem(heartItemTemplate, text))
-            );
-            card.querySelector('.recipe-steps').append(
-                ...recipe.steps.map((text, i) => createItem(stepItemTemplate, text, i + 1))
-            );
-            card.querySelector('.recipe-points').append(
-                ...recipe.points.map((text) => createItem(heartItemTemplate, text))
-            );
-
-            const button = card.querySelector('.recipe-action');
-            if (mode === 'save') {
-                button.addEventListener('click', () => saveFavorite(recipe, button));
-            } else {
-                button.textContent = 'お気に入りから削除';
-                button.addEventListener('click', () => deleteFavorite(recipe.id, card, button));
-            }
-            return card;
-        }
-
-
-        // ----- ① レシピ作成 -----
-        // data-list="○○" の欄に入力された文字を配列で取り出す（空欄は除く）
-        function getListValues(name) {
-            return [...document.querySelectorAll(`[data-list="${name}"] input`)]
-                .map((input) => input.value.trim())
-                .filter((value) => value !== '');
-        }
-
-        function showError(message) {
-            formError.textContent = message;
-            formError.hidden = false;
-            formError.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-
-        submitBtn.addEventListener('click', async () => {
-            const body = {
-                ingredients: getListValues('ingredients'),
-                exclude: getListValues('exclude'),
-                conditions: getListValues('conditions'),
-                servings: Number(document.getElementById('servings').value),
-                minutes: Number(document.getElementById('minutes').value),
-                count: Number(document.getElementById('count').value),
-            };
-
-            // 使う食材が空なら、サーバー側でおすすめのレシピを考えてもらう
-            const isRecommend = body.ingredients.length === 0;
-
-            formError.hidden = true;
-            loading.hidden = false;
-            submitBtn.disabled = true;
-
-            try {
-                const data = await requestJSON('/api/generate', 'POST', body);
-                document.getElementById('resultHeading').textContent =
-                    isRecommend ? 'おすすめのレシピ' : '作成されたレシピ';
-                resultList.replaceChildren(
-                    ...data.recipes.map((recipe) => createRecipeCard(recipe, 'save'))
-                );
-                goTo('result');
-            } catch (error) {
-                showError('エラーが発生しました: ' + error.message);
-            } finally {
-                loading.hidden = true;
-                submitBtn.disabled = false;
-            }
+        // スライダー：HTMLの value="○" の値に戻す
+        document.querySelectorAll('.range input[type="range"]').forEach((range) => {
+            range.value = range.defaultValue;
+            // input イベントを起こして、数字の表示と色のついた部分も更新する
+            range.dispatchEvent(new Event('input'));
         });
 
-        // クリアボタン：入力欄とスライダーを最初の状態に戻す
-        document.getElementById('resetBtn').addEventListener('click', () => {
-            // 食材・条件の欄：1行だけ残して空にする（増えた行は消す）
-            document.querySelectorAll('[data-list]').forEach((list) => {
-                const rows = list.querySelectorAll('.inp-list');
-                rows.forEach((row, i) => {
-                    if (i > 0) row.remove();
-                });
-                rows[0].querySelector('input').value = '';
-            });
-
-            // スライダー：HTMLの value="○" の値に戻す
-            document.querySelectorAll('.range input[type="range"]').forEach((range) => {
-                range.value = range.defaultValue;
-                // input イベントを起こして、数字の表示と色のついた部分も更新する
-                range.dispatchEvent(new Event('input'));
-            });
-
-            formError.hidden = true;
-        });
+        formError.hidden = true;
+    });
 
 
-        // ----- ③ お気に入り -----
-        async function saveFavorite(recipe, button) {
-            button.disabled = true;
-            button.textContent = '保存中...';
-            try {
-                await requestJSON('/api/favorites', 'POST', recipe);
-                button.textContent = 'お気に入りに保存しました';
-            } catch (error) {
-                button.disabled = false;
-                button.textContent = '保存できませんでした（もう一度押す）';
-            }
+    // ----- ③ お気に入り -----
+    async function saveFavorite(recipe, button) {
+        button.disabled = true;
+        button.textContent = '保存中...';
+        try {
+            await requestJSON('/api/favorites', 'POST', recipe);
+            button.textContent = 'お気に入りに保存しました';
+        } catch (error) {
+            button.disabled = false;
+            button.textContent = '保存できませんでした（もう一度押す）';
         }
+    }
 
-        async function loadFavorites() {
-            favEmpty.hidden = true;
-            favList.replaceChildren();
-            try {
-                const favorites = await requestJSON('/api/favorites');
-                favList.replaceChildren(
-                    ...favorites.map((recipe) => createRecipeCard(recipe, 'delete'))
-                );
-                favEmpty.textContent = 'まだお気に入りはありません';
-                favEmpty.hidden = favorites.length > 0;
-            } catch (error) {
-                favEmpty.textContent = '読み込みに失敗しました: ' + error.message;
-                favEmpty.hidden = false;
-            }
+    async function loadFavorites() {
+        favEmpty.hidden = true;
+        favList.replaceChildren();
+        try {
+            const favorites = await requestJSON('/api/favorites');
+            favList.replaceChildren(
+                ...favorites.map((recipe) => createRecipeCard(recipe, 'delete'))
+            );
+            favEmpty.textContent = 'まだお気に入りはありません';
+            favEmpty.hidden = favorites.length > 0;
+        } catch (error) {
+            favEmpty.textContent = '読み込みに失敗しました: ' + error.message;
+            favEmpty.hidden = false;
         }
+    }
 
-        async function deleteFavorite(id, card, button) {
-            if (!confirm('このレシピをお気に入りから削除しますか？')) return;
+    async function deleteFavorite(id, card, button) {
+        if (!confirm('このレシピをお気に入りから削除しますか？')) return;
 
-            button.disabled = true;
-            try {
-                await requestJSON(`/api/favorites/${id}`, 'DELETE');
-                card.remove();
-                favEmpty.hidden = favList.children.length > 0;
-            } catch (error) {
-                button.disabled = false;
-                alert('削除できませんでした: ' + error.message);
-            }
+        button.disabled = true;
+        try {
+            await requestJSON(`/api/favorites/${id}`, 'DELETE');
+            card.remove();
+            favEmpty.hidden = favList.children.length > 0;
+        } catch (error) {
+            button.disabled = false;
+            alert('削除できませんでした: ' + error.message);
         }
+    }
 
 
-        // ----- 最初に表示する画面 -----
-        showView(location.hash.slice(1));
-    </script>
+    // ----- 最初に表示する画面 -----
+    showView(location.hash.slice(1));
+</script>
 
 </body>
 

@@ -14,15 +14,20 @@
 
 aside {
     display: flex;
-    flex-direction: column; /* 要素を縦に並べる */
-    align-items: center;     /* 左右の中央に揃える */
-    gap: 15px;               /* 文字と画像の間の余白 */
+    flex-direction: column;
+    /* 要素を縦に並べる */
+    align-items: center;
+    /* 左右の中央に揃える */
+    gap: 15px;
+    /* 文字と画像の間の余白 */
 }
 
 aside div {
     text-align: center;
-    font-size: 24px;         /* 文字の大きさ（お好みで調整） */
-    font-weight: bold;       /* 文字を太字にする */
+    font-size: 24px;
+    /* 文字の大きさ（お好みで調整） */
+    font-weight: bold;
+    /* 文字を太字にする */
 }
 
 html {
@@ -85,6 +90,17 @@ header {
     align-items: center;
     width: 100%;
     padding: 10px 20px;
+}
+
+header div {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+header div img {
+    height: 50px;
+    margin-bottom: -1px;
 }
 
 #hamb {
@@ -445,6 +461,20 @@ input[type="range"]::-webkit-slider-thumb {
 
 .num {
     padding-right: 3px;
+}
+
+@keyframes kakukaku {
+    0% {
+        transform: rotate(-5deg);
+    }
+
+    50% {
+        transform: rotate(5deg);
+    }
+
+    100% {
+        transform: rotate(-5deg);
+    }
 }
 
 @media (min-width: 1024px) {
