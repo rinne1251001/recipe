@@ -12,6 +12,19 @@
     padding: 0;
 }
 
+aside {
+    display: flex;
+    flex-direction: column; /* 要素を縦に並べる */
+    align-items: center;     /* 左右の中央に揃える */
+    gap: 15px;               /* 文字と画像の間の余白 */
+}
+
+aside div {
+    text-align: center;
+    font-size: 24px;         /* 文字の大きさ（お好みで調整） */
+    font-weight: bold;       /* 文字を太字にする */
+}
+
 html {
     scrollbar-width: none;
     -ms-overflow-style: none;
