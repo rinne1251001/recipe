@@ -89,7 +89,7 @@ python -m uvicorn main:app --reload
 ## フォルダ構成
 
 ```
-Recitopia/
+Recipe/
 ├── main.py            # サーバー（API・データベース）
 ├── requirements.txt   # 必要なライブラリの一覧
 ├── .env.example       # APIキーの見本
